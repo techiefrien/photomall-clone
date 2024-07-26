@@ -105,13 +105,13 @@ def attender_matches(request , id):
     target_img = attender.selfie.path
     print('target image')
     print(target_img)
-    matched_pics=attender.event.photos.all()
+    matched_pics=[]
     print('input_images')
-    # for img in attender.event.photos.all():
-    #     input_img = img.photo.path
-    #     is_mateched = compareFaces(target_img, input_img)
-    #     if is_mateched:
-    #         matched_pics.append(img)
+    for img in attender.event.photos.all():
+         input_img = img.photo.path
+         is_mateched = compareFaces(target_img, input_img)
+         if is_mateched:
+             matched_pics.append(img)
 
     
     return render(request , 'selfie/match_page.html' , {'user':attender , 'matches':matched_pics})
