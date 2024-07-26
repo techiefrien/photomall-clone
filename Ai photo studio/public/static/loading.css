@@ -1,0 +1,19 @@
+.loading-win{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 199;
+    display: none;
+    filter: blur(1);
+
+}
+
+.loading-win.active{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

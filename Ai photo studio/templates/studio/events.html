@@ -1,0 +1,264 @@
+{% extends 'base/base.html' %}
+
+{% block eventmenu %} active open {% endblock eventmenu %}
+{% block eventmenuitems %} active {% endblock eventmenuitems %}
+
+{% block content %}
+
+
+    <!-- Layout container -->
+    <div class="layout-page">
+      <!-- Navbar -->
+
+      {% include 'inc/nav.html' %}
+
+      <!-- / Navbar -->
+
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
+
+
+          <div class="card mb-4">
+            <div class="card-widget-separator-wrapper">
+              <div class="card-body card-widget-separator">
+                <div class="row gy-4 gy-sm-1">
+                  <div class="col-sm-6 col-lg-3">
+                    <div
+                      class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
+                      <div>
+                        <h6 class="mb-2">Total Events</h6>
+                        <h4 class="mb-2">{{events.count}}</h4>
+                      </div>
+                      <span class="avatar me-sm-4">
+                        <span class="avatar-initial bg-label-secondary rounded"
+                          ><i class="ti-md ti ti-smart-home text-body"></i
+                        ></span>
+                      </span>
+                    </div>
+                    <hr class="d-none d-sm-block d-lg-none me-4" />
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                    <div
+                      class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
+                      <div>
+                        <h6 class="mb-2">Total Photos</h6>
+                        <h4 class="mb-2">{{photoCount}}</h4>
+                        <p class="mb-0">
+                          <span class="text-muted me-2">{{events.count}} Events</span>
+                        </p>
+                      </div>
+                      <span class="avatar p-2 me-lg-4">
+                        <span class="avatar-initial bg-label-secondary rounded"
+                          ><i class="ti-md ti ti-device-laptop text-body"></i
+                        ></span>
+                      </span>
+                    </div>
+                    <hr class="d-none d-sm-block d-lg-none" />
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                    <div
+                      class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
+                      <div>
+                        <h6 class="mb-2">Total Selfies</h6>
+                        <h4 class="mb-2">212</h4>
+                        <p class="mb-0 text-muted">600 Pictures</p>
+                      </div>
+                      <span class="avatar p-2 me-sm-4">
+                        <span class="avatar-initial bg-label-secondary rounded"
+                          ><i class="ti-md ti ti-gift text-body"></i
+                        ></span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-lg-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h6 class="mb-2">Popular Events</h6>
+                        <h4 class="mb-2">345.23</h4>
+                        <p class="mb-0">
+                          <span class="text-muted me-2">150 orders</span
+                          ><span class="badge bg-label-danger">-3.5%</span>
+                        </p>
+                      </div>
+                      <span class="avatar p-2">
+                        <span class="avatar-initial bg-label-secondary rounded"
+                          ><i class="ti-md ti ti-wallet text-body"></i
+                        ></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Striped Rows -->
+          <div class="card">
+            <h5 class="card-header">Event Details</h5>
+            <div class="table-responsive text-nowrap">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Event Key</th>
+                    <th>Total Pictures</th>
+                    <th>Total selfies</th>
+                    <th>Upload Status</th>
+                    <td>Created at</td>
+                    <td>Updated at</td>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+
+                   {% for event in events %}
+                   <tr>
+                    <td>
+                      <img src="{{event.image.url}}" alt="event-logo" class="rounded-circle" style="height: 40px; width: 40px; border: 5px solid lightgray;">
+                      <span class="fw-medium">{{event.name}}</span>
+                    </td>
+                    <td>{{event.key}}</td>
+                 
+                    <td>
+                     {% if event.photos.count > 2 %}
+                      <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center mt-4">
+                        {% for pic in event.photos.all|slice:"0:3" %}
+                        
+                        <li
+                        data-bs-toggle="tooltip"
+                        data-popup="tooltip-custom"
+                        data-bs-placement="top"
+                        class="avatar avatar-xs pull-up"
+                        title="photo {{forloop.counter}}">
+                        <img src="{{pic.photo.url}}" alt="Avatar" class="rounded-circle" />
+                      </li>
+                     
+                        {% endfor %}
+                        
+                       
+                      </ul>
+                      <h6 class="mt-1">{{event.photos.count}} Photos</h6>
+                      {% else %}
+                        {{event.photos.count}} Photos
+                      {% endif %}
+                    </td>
+                  
+                    <td>
+                      {% if event.attenders.count > 2 %}
+                       <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center mt-4">
+                         {% for pic in event.attenders.all|slice:"0:3" %}
+                         
+                         <li
+                         data-bs-toggle="tooltip"
+                         data-popup="tooltip-custom"
+                         data-bs-placement="top"
+                         class="avatar avatar-xs pull-up"
+                         title="photo {{forloop.counter}}">
+                         <img src="{{pic.selfie.url}}" alt="Avatar" class="rounded-circle" />
+                       </li>
+                      
+                         {% endfor %}
+                         
+                        
+                       </ul>
+                       <h6 class="mt-1">{{event.attenders.count}} Photos</h6>
+                       {% else %}
+                         {{event.attenders.count}} Photos
+                       {% endif %}
+                     </td>
+                   
+                    <td>
+                      {% if event.upload_range > 0 %}
+                        <span class="badge bg-label-success me-1">Active</span>
+                      {% else %}
+                        <span class="badge bg-label-danger me-1">Completed</span>
+                      {% endif  %}
+                    </td>
+                    <td>{{event.created_at}}</td>
+                    <td>{{event.updated_at}}</td>
+                    <td>
+                      <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                          <i class="ti ti-dots-vertical"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                          
+                          <a class="dropdown-item" href="{% url 'upload-photos' event.key %}"> 
+                            <i class="fa-solid fa-arrow-up-from-bracket mx-1 "></i> Upload Photos
+                          </a>
+
+                          <a class="dropdown-item" href="{% url 'gallery' event.key  %}"> 
+                            <i class="fa-regular fa-images me-1"></i> Gallery
+                          </a>
+                          
+                          <a class="dropdown-item" href="{% url 'selfie-gallery' event.key %}"> 
+                            <i class="fa-solid fa-camera-rotate me-1"></i> Selfies
+                          </a>
+
+                          <a class="dropdown-item" href="{% url 'event-qr-generator' event.key %}"> 
+                            <i class="fa-solid fa-qrcode mx-1"></i> QR Code
+                          </a>
+                        
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                   {% endfor %}
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--/ Striped Rows -->
+
+        </div>
+        <!-- / Content -->
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme">
+          <div class="container-xxl">
+            <div
+              class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column">
+              <div>
+                ©
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                , made with ❤️ by <a href="https://pixinvent.com" target="_blank" class="fw-medium">Pixinvent</a>
+              </div>
+              <div class="d-none d-lg-inline-block">
+                <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank"
+                  >License</a
+                >
+                <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4"
+                  >More Themes</a
+                >
+
+                <a
+                  href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/"
+                  target="_blank"
+                  class="footer-link me-4"
+                  >Documentation</a
+                >
+
+                <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block"
+                  >Support</a
+                >
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+      </div>
+      <!-- Content wrapper -->
+    </div>
+    <!-- / Layout page -->
+
+    
+{% endblock content %}

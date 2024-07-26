@@ -1,0 +1,184 @@
+{% extends 'base/base.html' %}
+
+{% block eventmenu %} active open {% endblock eventmenu %}
+{% block eventmenuitems %} active {% endblock eventmenuitems %}
+
+{% block content %}
+
+    <style>
+
+
+.gallery {
+    margin: auto;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.gallery-item {
+    flex: 1 1 calc(33% - 20px);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 10px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.2);
+    opacity: 1;
+    
+}
+
+
+
+
+
+
+
+
+
+.nav-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.nav-btn:hover {
+    background-color: #555;
+}
+
+@media (max-width: 768px) {
+    .gallery-item {
+        flex: 1 1 calc(50% - 20px);
+    }
+
+    .modal-content {
+        flex-direction: column;
+    }
+
+    .modal-right {
+        margin-left: 0;
+        margin-top: 20px;
+        width: 80%;
+        padding:0;
+    }
+
+    .nav-btn {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-item {
+        flex: 1 1 100%;
+    }
+}
+
+    </style>
+ 
+   
+    <!-- Layout container -->
+<div class="layout-page">
+    <!-- Navbar -->
+
+    {% include 'inc/nav.html' %}
+    <!-- / Navbar -->
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Events /</span> Gallery ({{event.key}})</h4>
+
+            <div class="row">
+                <!-- Multi  -->
+                <div class="col-12">
+                    <div class="card">
+                        <h5 class="card-header">{{event.name}}'s Gallery ({{event.attenders.count}})</h5>
+                      
+                        <div class="card-body">
+                          <div style="min-height: 50vh; width: 100%;">
+                              
+
+                            <div class="gallery">
+                               {% for img in event.attenders.all %}
+                                    <div class="gallery-item" onclick="openModal(0)">
+                                        <img src="{{img.selfie.url}}" alt="Venice Italie">
+                                        <h5 style="margin-top: 15px;">{{img.name}} - {{img.phone}}</h5>
+                                    </div> 
+                               {% endfor %}
+                            </div>
+                        
+                        
+
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Multi  -->
+            </div>
+        </div>
+        <!-- / Content -->
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl">
+                <div
+                    class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column">
+                    <div>
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        , made with ❤️ by <a href="https://pixinvent.com" target="_blank"
+                            class="fw-medium">Pixinvent</a>
+                    </div>
+                    <div class="d-none d-lg-inline-block">
+                        <a href="https://themeforest.net/licenses/standard" class="footer-link me-4"
+                            target="_blank">License</a>
+                        <a href="https://1.envato.market/pixinvent_portfolio" target="_blank"
+                            class="footer-link me-4">More Themes</a>
+
+                        <a href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/" target="_blank"
+                            class="footer-link me-4">Documentation</a>
+
+                        <a href="https://pixinvent.ticksy.com/" target="_blank"
+                            class="footer-link d-none d-sm-inline-block">Support</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+</div>
+<!-- / Layout page -->
+
+<script src="/static/assets/vendor/libs/jquery/jquery.js"></script>
+
+
+
+{% endblock content %}

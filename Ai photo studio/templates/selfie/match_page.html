@@ -1,0 +1,327 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Contact profile</title>
+    <style>
+        *,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --backgroun-color-light : #ffff;
+    --backgroun-color-dark : #252525;
+    --dark-text : #ffff;
+    --light-text : #252525;
+    --form-button : #7367f0;
+    --form-button-hover :#9e49ff;
+}
+body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--backgroun-color-light);
+    font-family: 'montserrat', sans-serif;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.section-contact {
+    width: 100%;
+    /* min-height: 100vh; */
+    /* padding: 100px 0; */
+}
+
+.section-contact h2 {
+    text-align: center;
+    color: #0072ce;
+    margin-bottom: 20px;
+}
+
+.section-contact .contact-profile {
+    margin: 0 auto;
+    color: #252525;
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-contact .contact-profile .profile-image {
+    /* background-color: red; */
+    margin-bottom: 20px;
+}
+
+.section-contact .contact-profile .profile-image img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.section-contact .contact-profile .profile-image h2 {
+    color: var(--light-text);
+    font-size: 30px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.section-contact .contact-profile .profile-image h5 {
+    text-transform: uppercase;
+    color: var(--light-text);
+}
+
+
+/* ========= profile-text ============ */
+.section-contact .contact-profile .profile-text p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.section-contact .contact-profile .profile-text .btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 15px 30px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+
+
+
+@media screen and (min-width: 600px) {
+    .section-contact .contact-profile {
+        flex-direction: row;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .section-contact .contact-profile .profile-image {
+        margin-bottom: 0px;
+        padding-right: 20px;
+    }
+}
+
+
+form {
+  max-width: 360px;
+  width: 100%;  
+  padding: 58px 44px;
+  transition: all 0.3s ease;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.row label {
+  font-size: 13px;
+  color: #8086a9;
+}
+
+.row input {
+  flex: 1;
+  padding: 13px;
+  border: 1px solid #d6d8e6;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.2s ease-out;
+}
+
+.row input:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 5px 0 rgba(42, 45, 48, 0.12);
+}
+
+.row input::placeholder {
+  color: #C8CDDF;
+}
+
+button {
+  width: 150px;
+  padding: 12px;
+  font-size: 18px;
+  background: var(--form-button);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 15px;
+  transition: background 0.2s ease-out;
+}
+
+button:hover {
+  background: var(--form-button-hover);
+}
+
+@media(max-width: 458px) {
+
+  
+  form {
+    border: none;
+    box-shadow: none;
+    padding: 20px 0;
+  }
+
+}
+
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 10px;
+}
+.gallery-item {
+    flex-basis: 32.7%;
+    margin-bottom: 6px;
+    opacity: .85;
+    cursor: pointer;
+}
+.gallery-item:hover {
+    opacity: 1;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.gallery-content {
+    font-size: .8em;
+}
+
+.lightbox {
+    position: fixed;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;              
+    overflow: auto;
+    top: 0;
+    left: 0;
+}
+.lightbox-content {
+    position: relative;
+    width: 70%;
+    height: 70%;
+    margin: 5% auto;
+}
+.lightbox-content img {
+    border-radius: 7px;
+    box-shadow: 0 0 3px 0 rgba(225, 225, 225, .25);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 7px;
+    top: 45%;
+    cursor: pointer;
+}
+.lightbox-prev {
+    left: 0;
+}
+.lightbox-next {
+    right: 0;
+}
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    opacity: .8;
+}
+
+@media (max-width: 767px) {
+    .gallery-container {
+        width: 100%;
+    }
+    .gallery-item {
+        flex-basis: 49.80%;
+        margin-bottom: 3px;
+    }
+    .lightbox-content {
+        width: 80%;
+        height: 60%;
+        margin: 15% auto;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .gallery-item {
+        flex-basis: 100%;
+        margin-bottom: 1px;
+    }
+    .lightbox-content {
+        width: 90%;
+        margin: 20% auto;
+    }
+}   
+
+    </style>
+</head>
+<body>
+    <section class="section-contact">
+        <div class="contact-profile">
+            <div class="profile-image">
+                <img src="{{user.selfie.url}}">
+                <h2>Simply One</h2>
+                <h5>Web Designer</h5>
+            </div>
+            <div class="profile-text">
+            </div>
+        </div>
+    </section>
+    <div class="gallery-container">
+      {% for img in matches %}
+      <div class="gallery-item" data-index="1">
+        <img class="gallery-img" src="{{img.photo.url}}">
+    </div>
+      {% endfor %}
+  </div>
+
+
+  <div class="popUpWin">
+    <div class="img-container">
+        <img src="" alt="" class="popUpImg">
+        <div class="btn-group">
+            <a href="" download="download"><div>Download</div></a>
+            <button class="btn-close">Close</button>
+        </div>
+    </div>
+  </div>
+
+
+<script src="/static/assets/vendor/libs/jquery/jquery.js"></script>
+
+<script>
+    $('.gallery-img').each((index , value)=>{
+        console.log(index , value)
+       value.addEventListener('click' , function(e){
+        console.log('img clicked' , e.target)
+       })
+    })
+</script>
+
+
+</body>
+</html>

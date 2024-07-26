@@ -1,0 +1,238 @@
+
+
+
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="/static/assets/vendor/css/pages/page-profile.css" />
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+                {% include 'inc/nav.html' %}
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+              <div class="container-xxl flex-grow-1 container-p-y">
+                <h4 class="py-3 mb-4"><span class="text-muted fw-light">User Profile /</span> Profile</h4>
+  
+                <!-- Header -->
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card mb-4">
+                      <div class="user-profile-header-banner">
+                        <img src="{{request.user.profile.first.image.url}}" alt="Banner image" class="rounded-top" />
+                      </div>
+                      <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                        <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                          <img
+                            src="{{request.user.profile.first.image.url}}"
+                            alt="user image"
+                            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                        </div>
+                        <div class="flex-grow-1 mt-3 mt-sm-5">
+                          <div
+                            class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                            <div class="user-profile-info">
+                              <h4>{{request.user.username}}</h4>
+                              <ul
+                                class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                                <li class="list-inline-item d-flex gap-1">
+                                  <i class="ti ti-color-swatch"></i> {{request.user.profile.first.shop_name | default:'fill your shop name in settings'}}
+                                </li>
+                                <li class="list-inline-item d-flex gap-1"><i class="ti ti-map-pin"></i>{{request.user.profile.first.city | default:'fill your city name in settings'}}</li>
+                                <li class="list-inline-item d-flex gap-1">
+                                  <i class="ti ti-calendar"></i> Joined at {{request.user.date_joined}}
+                                </li>
+                              </ul>
+                            </div>
+                            <!-- <a href="javascript:void(0)" class="btn btn-primary">
+                              <i class="ti ti-check me-1"></i>Connected
+                            </a> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Header -->
+  
+                <!-- Navbar pills -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <ul class="nav nav-pills flex-column flex-sm-row mb-4">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="javascript:void(0);"
+                          ><i class="ti-xs ti ti-user-check me-1"></i> Profile</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="pages-profile-teams.html"
+                          ><i class="ti-xs ti ti-users me-1"></i> Teams</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="pages-profile-projects.html"
+                          ><i class="ti-xs ti ti-layout-grid me-1"></i> Projects</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="pages-profile-connections.html"
+                          ><i class="ti-xs ti ti-link me-1"></i> Connections</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!--/ Navbar pills -->
+  
+                <!-- User Profile Content -->
+                <div class="row">
+                  <div class="col-xl-4 col-lg-5 col-md-5">
+                    <!-- About User -->
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <small class="card-text text-uppercase">About</small>
+                        <ul class="list-unstyled mb-4 mt-3">
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-user text-heading"></i
+                            ><span class="fw-medium mx-2 text-heading">Full Name:</span> <span>{{request.user.first_name}} {{request.user.last_name}}</span>
+                          </li>
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-check text-heading"></i
+                            ><span class="fw-medium mx-2 text-heading">Status:</span> <span>Active</span>
+                          </li>
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-crown text-heading"></i
+                            ><span class="fw-medium mx-2 text-heading">Shop Name:</span> <span>{{request.user.profile.first.shop_name}}</span>
+                          </li>
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-flag text-heading"></i
+                            ><span class="fw-medium mx-2 text-heading">District:</span> <span>{{request.user.profile.first.district}}</span>
+                          </li>
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-file-description text-heading"></i
+                            ><span class="fw-medium mx-2 text-heading">Languages:</span> <span>English | Tamil</span>
+                          </li>
+                        </ul>
+                        <small class="card-text text-uppercase">Contacts</small>
+                        <ul class="list-unstyled mb-4 mt-3">
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-phone-call"></i><span class="fw-medium mx-2 text-heading">Contact:</span>
+                            <span>+91 {{request.user.profile.first.phone_number}}</span>
+                          </li>
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-shop"></i><span class="fw-medium mx-2 text-heading">Address:</span>
+                            <span>{{request.user.profile.first.address}}</span>
+                          </li>
+
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-code-branch"></i><span class="fw-medium mx-2 text-heading">Zip Code:</span>
+                            <span>{{request.user.profile.first.pin_code}}</span>
+                          </li>
+
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-mail"></i><span class="fw-medium mx-2 text-heading">Email:</span>
+                            <span>{{request.user.email}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!--/ About User -->
+                    <!-- Profile Overview -->
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <p class="card-text text-uppercase">Overview</p>
+                        <ul class="list-unstyled mb-0">
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-check"></i><span class="fw-medium mx-2">Total events:</span>
+                            <span>13.5k</span>
+                          </li>
+                          <li class="d-flex align-items-center mb-3">
+                            <i class="ti ti-layout-grid"></i><span class="fw-medium mx-2">popular events:</span>
+                            <span>146</span>
+                          </li>
+                          <li class="d-flex align-items-center">
+                            <i class="ti ti-users"></i><span class="fw-medium mx-2">Total Selfies:</span> <span>897</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!--/ Profile Overview -->
+                  </div>
+                  <div class="col-xl-8 col-lg-7 col-md-7">
+                     <!-- Ajax Sourced Server-side -->
+              <div class="card">
+                <h5 class="card-header">Events</h5>
+                <div class="card-datatable text-nowrap">
+                  <table class="datatables-ajax table">
+                    <thead>
+                      <tr>
+                        <th>Full name</th>
+                        <th>Email</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <!--/ Ajax Sourced Server-side -->
+                  </div>
+                </div>
+                <!--/ User Profile Content -->
+              </div>
+              <!-- / Content -->
+  
+              <!-- Footer -->
+              <footer class="content-footer footer bg-footer-theme">
+                <div class="container-xxl">
+                  <div
+                    class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column">
+                    <div>
+                      ©
+                      <script>
+                        document.write(new Date().getFullYear());
+                      </script>
+                      , made with ❤️ by <a href="https://pixinvent.com" target="_blank" class="fw-medium">Pixinvent</a>
+                    </div>
+                    <div class="d-none d-lg-inline-block">
+                      <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank"
+                        >License</a
+                      >
+                      <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4"
+                        >More Themes</a
+                      >
+  
+                      <a
+                        href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/"
+                        target="_blank"
+                        class="footer-link me-4"
+                        >Documentation</a
+                      >
+  
+                      <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block"
+                        >Support</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+
+            <!-- Page JS -->
+            <script src="/static/assets/js/pages-profile.js"></script>
+            <script src="/static/assets/js/tables-datatables-advanced.js"></script>
+
+{% endblock content %}

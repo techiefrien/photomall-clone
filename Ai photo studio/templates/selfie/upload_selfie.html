@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+        .h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.profile-pic-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pic-holder {
+  text-align: center;
+  position: relative;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pic-holder .pic {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+}
+
+.pic-holder .upload-file-block,
+.pic-holder .upload-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(90, 92, 105, 0.7);
+  color: #f8f9fc;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.pic-holder .upload-file-block {
+  cursor: pointer;
+}
+
+.pic-holder:hover .upload-file-block,
+.uploadProfileInput:focus ~ .upload-file-block {
+  opacity: 1;
+}
+
+.pic-holder.uploadInProgress .upload-file-block {
+  display: none;
+}
+
+.pic-holder.uploadInProgress .upload-loader {
+  opacity: 1;
+}
+
+/* Snackbar css */
+.snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 14px;
+  transform: translateX(-50%);
+}
+
+.snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+.btn-hover {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    transition: all .4s ease-in-out;
+}
+.btn-hover.color-3 {
+    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+}
+
+.rounded-gradient-borders {
+  width: 250px;
+  height: 250px;
+  border: double 10px transparent;
+  border-radius: 50%;
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  display: inline-block;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.rounded-corners-gradient-borders-2 {
+  border: double 10px black;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-clip: content-box;
+  background-color: red;
+  float: left;
+}
+.text-info{
+    text-align: center;
+    margin-top: 20px;
+}
+
+    </style>
+    <style>
+      .loading-win{
+        height: 100vh;
+        width: 100%;
+
+        position: fixed;
+        top:0;
+        left: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        background:rgba(0,0,0,0.9);
+        filter: blur(1.01);
+
+        display: none;
+      }
+
+      .loading-win.active{
+        display: flex;
+      }
+
+
+    </style>
+</head>
+<body>
+    <div class="Selfie-profile">
+
+        <div class="profile-pic-wrapper">
+        <h1 class="h1" style="text-transform: capitalize;">upload your selfie to get your photos <br> <small>{{event.name}} - {{event.key}}</small> </h1>
+        <div class="pic-holder rounded-gradient-borders">
+          <!-- uploaded pic shown here -->
+          <img id="profilePic" class="pic" src="https://cdn.dribbble.com/users/1177707/screenshots/3542644/selfie1.gif">
+      
+          
+        </div>
+        {% include 'inc/loading.html' %}
+        <form action="" method="post" id="selfie-form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="selfie">
+            <div class="btn-hover color-3" style="display: flex; align-items: center; justify-content: center;">Upload Selfie</div>
+          </label>
+          <input type="file" id="selfie" name="selfie" capture="camera" accept="image/*" style="display: none;">
+          
+          <input type="hidden" value="{{event.key}}" name="key">
+        </form>
+      
+        <p class="text-info">Note: your selfie and photos will not be shared anywhere . <br> we will just use this selfie to get your matched pic in this event.</p>
+      </div>
+    </div>
+    
+<script src="/static/assets/vendor/libs/jquery/jquery.js"></script>
+<script>
+    $('#selfie').change(()=>{
+    $('.loading-win').addClass('active')
+     $('#selfie-form').submit()
+    })
+</script>
+
+
+</body>
+</html>
